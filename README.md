@@ -1,0 +1,2 @@
+💡 MQTT Light Controller
+This project is a simple web-based application that allows a user to control a light (simulated using Python) over MQTT. The app includes a web interface to send MQTT messages to turn the light ON or OFF, and a Python script that simulates an IoT device (like an ESP8266) to receive these messages and display the light status.

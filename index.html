@@ -3,41 +3,38 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MQTT Light Controller</title>
+    <title>MQTT Light Control</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.3.7/mqtt.min.js"></script>
 </head>
 <body>
-    <h1>MQTT Light Controller</h1>
-    <button id="turnOnBtn">Turn ON</button>
-    <button id="turnOffBtn">Turn OFF</button>
-    <p>Status: <span id="status">N/A</span></p>
+    <h2>MQTT Light Control</h2>
+    <button onclick="turnOn()">Turn ON</button>
+    <button onclick="turnOff()">Turn OFF</button>
+    <p>Status: <span id="status">Waiting...</span></p>
 
-    <!-- Include MQTT.js -->
-    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
     <script>
-        // Connect to the MQTT broker using WebSockets
-        const brokerUrl = 'ws://157.173.101.159:9001';
+        const brokerUrl = 'ws://localhost:9001'; // Local MQTT broker using WebSocket
         const topic = '/student_group/light_control';
+
         const mqttClient = mqtt.connect(brokerUrl);
 
         mqttClient.on('connect', () => {
-            console.log('Connected to broker');
+            console.log('✅ Connected to MQTT Broker');
         });
 
-        mqttClient.on('error', (err) => {
-            console.error('Connection error:', err);
+        mqttClient.on('error', (error) => {
+            console.log(`❌ Connection error: ${error}`);
         });
 
-        // Send "ON" command
-        document.getElementById('turnOnBtn').addEventListener('click', () => {
+        function turnOn() {
             mqttClient.publish(topic, 'ON');
             document.getElementById('status').innerText = 'Light is TURNED ON';
-        });
+        }
 
-        // Send "OFF" command
-        document.getElementById('turnOffBtn').addEventListener('click', () => {
+        function turnOff() {
             mqttClient.publish(topic, 'OFF');
             document.getElementById('status').innerText = 'Light is TURNED OFF';
-        });
+        }
     </script>
 </body>
 </html>
