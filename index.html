@@ -6,7 +6,7 @@
     <title>MQTT Light Control</title>
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
     <style>
-        /* General Styling */
+       
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #f0f4f8, #d9e7ff);
@@ -18,7 +18,7 @@
             color: #333;
         }
 
-        /* Container Styling */
+     
         .container {
             background: rgba(255, 255, 255, 0.8);
             padding: 2rem;
@@ -34,14 +34,13 @@
             transform: translateY(-5px);
         }
 
-        /* Title Styling */
         h1 {
             font-size: 1.8rem;
             color: #555;
             margin-bottom: 1.5rem;
         }
 
-        /* Button Styling */
+        
         .buttons {
             display: flex;
             justify-content: center;
@@ -82,7 +81,7 @@
             transform: translateY(-2px);
         }
 
-        /* Status Display */
+        
         .status {
             font-size: 1.2rem;
             padding: 0.8rem;
@@ -99,7 +98,7 @@
             color: #ff4d4d;
         }
 
-        /* Light Bulb Styling */
+        
         .bulb {
             font-size: 5rem;
             margin: 1rem 0;
@@ -114,7 +113,7 @@
             filter: drop-shadow(0 0 15px #ffdd44);
         }
 
-        /* Animation for status change */
+        
         .status span {
             display: inline-block;
             animation: fadeIn 0.3s ease;
@@ -136,7 +135,7 @@
 
 <div class="container">
     <h1>💡 MQTT Light Control</h1>
-    <!-- Bulb Display -->
+  
     <div id="bulb" class="bulb">💡</div>
     <div class="buttons">
         <button id="onButton">Turn ON</button>
@@ -146,14 +145,14 @@
 </div>
 
 <script>
-    // MQTT Broker details
-    const brokerUrl = "ws://157.173.101.159:9001/mqtt"; // Broker URL
-    const topic = "/student_group/light_control"; // MQTT topic
+   
+    const brokerUrl = "ws://157.173.101.159:9001/mqtt"; 
+    const topic = "/student_group/light_control"; 
 
-    // Create MQTT client
+   
     const client = mqtt.connect(brokerUrl);
 
-    // Handle successful connection
+   
     client.on("connect", () => {
         console.log("✅ Connected to MQTT broker");
         client.subscribe(topic, (err) => {
@@ -163,7 +162,7 @@
         });
     });
 
-    // Handle incoming messages
+   
     client.on("message", (receivedTopic, message) => {
         if (receivedTopic === topic) {
             console.log(`📩 Received: ${message.toString()}`);
@@ -171,7 +170,7 @@
         }
     });
 
-    // Function to publish a message
+   
     function publishMessage(message) {
         client.publish(topic, message, (err) => {
             if (!err) {
@@ -183,7 +182,7 @@
         });
     }
 
-    // Function to update status display and bulb state
+    
     function updateStatus(status) {
         const statusElement = document.getElementById("status");
         const bulbElement = document.getElementById("bulb");
@@ -198,7 +197,7 @@
         }
     }
 
-    // Button event listeners
+   
     document.getElementById("onButton").addEventListener("click", () => publishMessage("ON"));
     document.getElementById("offButton").addEventListener("click", () => publishMessage("OFF"));
 </script>
