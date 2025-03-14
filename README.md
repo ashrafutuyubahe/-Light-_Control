@@ -38,6 +38,6 @@ here is the structure of project
 
 
 🧪 Technologies Used
-HTML, CSS, JavaScript
+HTML, python, JavaScript
 MQTT.js (WebSocket connection)
 
