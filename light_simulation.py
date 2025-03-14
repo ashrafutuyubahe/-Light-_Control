@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
 
-# Local MQTT broker configuration
-broker = "localhost"
+# MQTT broker details
+broker = "157.173.101.159"
 port = 1883
 topic = "/student_group/light_control"
 
@@ -12,14 +12,20 @@ def on_message(client, userdata, message):
         print("💡 Light is TURNED ON")
     elif msg == "OFF":
         print("💡 Light is TURNED OFF")
+    else:
+        print(f"❌ Unknown message received: {msg}")
 
 # Setup MQTT client
 client = mqtt.Client()
-client.connect(broker, port, 60)
-
-# Subscribe to the topic
-client.subscribe(topic)
 client.on_message = on_message
 
-print("🚀 Listening for MQTT messages...")
+# Connect to broker
+client.connect(broker, port, 60)
+
+# Subscribe to topic
+client.subscribe(topic)
+
+print(f"🚀 Listening for MQTT messages on {topic}...")
+
+# Keep listening
 client.loop_forever()
